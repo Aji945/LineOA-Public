@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎁 幸運抽獎</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- 內嵌CSS樣式 -->
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .lottery-container {
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 1rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            padding: 1rem 0;
+            margin-bottom: 1rem;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
+        }
+
+        /* 抽獎券顯示 */
+        .tickets-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .tickets-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .tickets-icon {
+            font-size: 2.5rem;
+            color: #667eea;
+        }
+
+        .tickets-info h3 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+            margin: 0;
+        }
+
+        .tickets-info p {
+            color: #666;
+            margin: 0;
+        }
+
+        /* 九宮格樣式 */
+        .lottery-grid-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .lottery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 4px;
+            padding: 8px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .grid-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-align: center;
+            line-height: 1.1;
+            padding: 6px;
+            box-sizing: border-box;
+            min-height: 92px;
+        }
+
+        .grid-item.center {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #333;
+            text-shadow: none;
+            font-size: 0.7rem;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.5);
+        }
+
+        /* 8個獎項格子的漸層背景 */
+        .grid-item:nth-child(1) { background: linear-gradient(135deg, #FF6B6B, #FF8E8E); }
+        .grid-item:nth-child(2) { background: linear-gradient(135deg, #4ECDC4, #44E4D8); }
+        .grid-item:nth-child(3) { background: linear-gradient(135deg, #45B7D1, #67C3E6); }
+        .grid-item:nth-child(4) { background: linear-gradient(135deg, #96CEB4, #A8DAC2); }
+        .grid-item:nth-child(6) { background: linear-gradient(135deg, #FECA57, #FFD93D); }
+        .grid-item:nth-child(7) { background: linear-gradient(135deg, #FF9FF3, #FFB3F7); }
+        .grid-item:nth-child(8) { background: linear-gradient(135deg, #54A0FF, #74B9FF); }
+        .grid-item:nth-child(9) { background: linear-gradient(135deg, #5F27CD, #7B3FE4); }
+
+        /* 跑燈效果 */
+        .grid-item.running {
+            animation: runningLight 0.3s ease-in-out;
+            transform: scale(1.1);
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.9);
+            z-index: 10;
+            border: 2px solid #fff;
+        }
+
+        .grid-item.winner {
+            animation: winner 1s ease-in-out infinite;
+            transform: scale(1.15);
+            box-shadow: 0 0 35px rgba(255, 215, 0, 1);
+            z-index: 20;
+            border: 3px solid #FFD700;
+        }
+
+        @keyframes runningLight {
+            0% { 
+                transform: scale(1);
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+                border: none;
+            }
+            50% { 
+                transform: scale(1.1);
+                box-shadow: 0 0 25px rgba(255, 255, 255, 0.9);
+                border: 2px solid #fff;
+            }
+            100% { 
+                transform: scale(1);
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+                border: none;
+            }
+        }
+
+        @keyframes winner {
+            0%, 100% { 
+                transform: scale(1.15);
+                box-shadow: 0 0 35px rgba(255, 215, 0, 1);
+            }
+            50% { 
+                transform: scale(1.25);
+                box-shadow: 0 0 45px rgba(255, 215, 0, 1), 0 0 15px rgba(255, 255, 255, 0.8);
+            }
+        }
+
+        /* 抽獎按鈕 */
+        .draw-section {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .draw-btn {
+            background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+            min-width: 200px;
+        }
+
+        .draw-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.5);
+        }
+
+        .draw-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .draw-notice {
+            margin-top: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+        }
+
+        /* 結果彈窗 */
+        .result-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.15s ease; /* 加快動畫 */
+        }
+
+        .result-modal.show {
+            opacity: 1;
+        }
+
+        .result-content {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 1rem;
+            max-width: 350px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: scale(0.8);
+            transition: transform 0.15s ease; /* 加快動畫 */
+        }
+
+        .result-modal.show .result-content {
+            transform: scale(1);
+        }
+
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .winner-icon {
+            color: #FFD700;
+            animation: bounce 1s infinite;
+        }
+
+        .thanks-icon {
+            color: #FF6B9D;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .result-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .prize-info {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            color: white;
+        }
+
+        .close-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .footer-links {
+            margin-top: auto;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .footer-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 0.6rem 1.5rem;
+            margin: 0.3rem;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+        /* 載入動畫 */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            width: 2rem;
+            height: 2rem;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="lottery-container">
+        <!-- 頁面標題 -->
+        <div class="header">
+            <h1>🎁 幸運抽獎</h1>
+            <p>轉動幸運轉盤，豐富獎品等你拿！</p>
+        </div>
+
+        <!-- 抽獎券顯示 -->
+        <div class="tickets-card">
+            <div id="ticketsDisplay" class="tickets-display">
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 九宮格抽獎區域 -->
+        <div class="lottery-grid-container">
+            <div id="lotteryGrid" class="lottery-grid">
+                <!-- 動態生成九宮格區塊 -->
+            </div>
+        </div>
+
+        <!-- 抽獎按鈕 -->
+        <div class="draw-section">
+            <button id="drawBtn" class="draw-btn" onclick="startDraw()">
+                <i class="bi bi-gift"></i> 開始抽獎
+            </button>
+            <div class="draw-notice">
+                <i class="bi bi-info-circle"></i> 每次抽獎消耗1張抽獎券
+            </div>
+        </div>
+
+        <!-- 底部連結 -->
+        <div class="footer-links">
+            <a href="index.html" class="footer-btn">
+                <i class="bi bi-house"></i> 返回首頁
+            </a>
+            <a href="index.html?page=lotteryHistory" class="footer-btn">
+                <i class="bi bi-clock-history"></i> 抽獎記錄
+            </a>
+        </div>
+    </div>
+
+    <!-- 抽獎結果彈窗 -->
+    <div id="resultModal" class="result-modal">
+        <div class="result-content">
+            <div id="resultContent">
+                <!-- 動態內容 -->
+            </div>
+            <button class="close-btn" onclick="closeResult()">
+                <i class="bi bi-x-lg"></i> 關閉
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script>
+        // 全域變數
+        const API_BASE_URL = 'https://script.google.com/macros/s/AKfycbzuNz5XDKdq_B0XQpD-j7K0M1iqHQqQdnPqzqj6_wjE-E-XYSgP9jvyI6KBqEQADEm3/exec';
+        let currentUser = null;
+        let currentPrizes = [];
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeLiff();
+        });
+
+        // LIFF 初始化
+        async function initializeLiff() {
+            try {
+                await liff.init({ liffId: '2007573269-X7EOlxw2' });
+                
+                if (liff.isLoggedIn()) {
+                    await loadUserProfile();
+                    await loadLotteryData();
+                } else {
+                    liff.login();
+                }
+            } catch (error) {
+                console.error('LIFF初始化失敗:', error);
+                showError('系統初始化失敗，請重新整理頁面');
+            }
+        }
+
+        // 載入用戶資料
+        async function loadUserProfile() {
+            try {
+                const profile = await liff.getProfile();
+                currentUser = profile;
+                console.log('用戶已登入:', profile.displayName);
+            } catch (error) {
+                console.error('載入用戶資料失敗:', error);
+                showError('載入用戶資料失敗');
+            }
+        }
+
+        // 載入抽獎資料
+        async function loadLotteryData() {
+            try {
+                const accessToken = liff.getAccessToken();
+                
+                // 並行載入抽獎券和獎項
+                const [ticketsResponse, prizesResponse] = await Promise.all([
+                    fetch(`${API_BASE_URL}?action=getLotteryTickets&userId=${currentUser.userId}&accessToken=${accessToken}`),
+                    fetch(`${API_BASE_URL}?action=getLotteryPrizes&accessToken=${accessToken}`)
+                ]);
+
+                const [ticketsResult, prizesResult] = await Promise.all([
+                    ticketsResponse.json(),
+                    prizesResponse.json()
+                ]);
+
+                if (ticketsResult.success) {
+                    displayTickets(ticketsResult.data);
+                }
+
+                if (prizesResult.success) {
+                    currentPrizes = prizesResult.data;
+                    generateWheel(prizesResult.data);
+                }
+            } catch (error) {
+                console.error('載入抽獎資料失敗:', error);
+                showError('載入抽獎資料失敗');
+            }
+        }
+
+        // 顯示抽獎券
+        function displayTickets(ticketsData) {
+            const display = document.getElementById('ticketsDisplay');
+            display.innerHTML = `
+                <div class="tickets-icon">
+                    <i class="bi bi-ticket-perforated-fill"></i>
+                </div>
+                <div class="tickets-info">
+                    <h3>${ticketsData.currentTickets || 0}</h3>
+                    <p>張抽獎券</p>
+                </div>
+            `;
+        }
+
+        // 生成九宮格
+        function generateWheel(prizes) {
+            const lotteryGrid = document.getElementById('lotteryGrid');
+            // 包含所有獎項（包括謝謝參加），但排除數量為0的獎項
+            const allPrizes = prizes.filter(p => p.remainingQuantity > 0);
+            
+            if (allPrizes.length === 0) {
+                lotteryGrid.innerHTML = '<div class="grid-item center">暫無獎項</div>';
+                return;
+            }
+
+            // 九宮格順時鐘順序的HTML位置對應
+            // 0  1  2
+            // 7  X  3  (X是中心空格)
+            // 6  5  4
+            const clockwiseOrder = [0, 1, 2, 3, 4, 5, 6, 7]; // 順時鐘8個位置
+            const htmlPositions = [0, 1, 2, 5, 8, 7, 6, 3]; // 對應的HTML元素位置
+            
+            let gridHTML = '';
+            
+            // 生成9個格子：按HTML順序生成，但要記住順時鐘邏輯
+            for (let i = 0; i < 9; i++) {
+                if (i === 4) { // 中心位置 - 完全空白
+                    gridHTML += `
+                        <div class="grid-item center" data-position="center">
+                        </div>
+                    `;
+                } else {
+                    // 找到這個HTML位置在順時鐘順序中的索引
+                    const clockwiseIndex = htmlPositions.indexOf(i);
+                    const prize = allPrizes[clockwiseIndex % allPrizes.length];
+                    
+                    gridHTML += `
+                        <div class="grid-item" data-prize-id="${prize.id}" data-clockwise-index="${clockwiseIndex}">
+                            ${prize.name}
+                        </div>
+                    `;
+                }
+            }
+            
+            lotteryGrid.innerHTML = gridHTML;
+            
+            // 儲存配置供跑燈使用
+            window.clockwiseOrder = clockwiseOrder;
+            window.htmlPositions = htmlPositions;
+            window.currentPrizes = allPrizes;
+        }
+
+        // 開始抽獎
+        async function startDraw() {
+            const drawBtn = document.getElementById('drawBtn');
+            
+            if (drawBtn.disabled) return;
+            
+            drawBtn.disabled = true;
+            drawBtn.innerHTML = '<div class="spinner"></div> 抽獎中...';
+            
+            try {
+                // 清除上一次的中獎狀態
+                const allGridItems = document.querySelectorAll('.grid-item:not(.center)');
+                allGridItems.forEach(item => {
+                    item.classList.remove('running', 'winner');
+                });
+                
+                // 並行執行：跑燈動畫和API請求
+                const [runningResult, apiResult] = await Promise.all([
+                    startRunningLights(),
+                    fetch(API_BASE_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `action=drawLottery&userId=${currentUser.userId}&accessToken=${liff.getAccessToken()}`
+                    }).then(response => response.json())
+                ]);
+                
+                if (apiResult.success) {
+                    // 根據中獎結果找到對應的格子位置並顯示
+                    const targetPosition = findPrizePosition(apiResult.data.prizeId);
+                    console.log('中獎獎項:', apiResult.data.prizeId, '對應位置:', targetPosition);
+                    stopRunningLights(targetPosition);
+                    
+                    // 處理自動兌換
+                    if (!apiResult.data.isThanks) {
+                        handleAutoExchange(apiResult.data);
+                    }
+                    
+                    // 延遲顯示結果
+                    setTimeout(() => {
+                        showResult(apiResult.data);
+                        // 更新抽獎券顯示
+                        displayTickets({ currentTickets: apiResult.data.remainingTickets });
+                    }, 1000);
+                } else {
+                    stopRunningLights(-1); // 停止動畫
+                    showError(apiResult.error || '抽獎失敗');
+                }
+                
+            } catch (error) {
+                console.error('抽獎失敗:', error);
+                stopRunningLights(-1);
+                showError('網路錯誤，請稍後再試');
+            } finally {
+                setTimeout(() => {
+                    drawBtn.disabled = false;
+                    drawBtn.innerHTML = '<i class="bi bi-gift"></i> 開始抽獎';
+                }, 4000);
+            }
+        }
+        
+                // 開始跑燈動畫 - 真正的順時鐘跑燈
+        async function startRunningLights() {
+            return new Promise((resolve) => {
+                const allGridItems = document.querySelectorAll('.grid-item');
+                const htmlPositions = window.htmlPositions || [0, 1, 2, 5, 8, 7, 6, 3];
+                
+                let currentClockwiseIndex = 0; // 當前順時鐘位置（0-7）
+                let stepCount = 0;
+                const totalSteps = 8 * 2 + 4; // 跑2.5圈 (2圈 + 4步)
+                const baseSpeed = 150; // 基礎速度
+                
+                function runNext() {
+                    // 清除所有跑燈效果
+                    allGridItems.forEach(item => {
+                        item.classList.remove('running');
+                    });
+                    
+                    // 根據順時鐘索引找到對應的HTML元素位置
+                    const htmlIndex = htmlPositions[currentClockwiseIndex];
+                    const targetElement = allGridItems[htmlIndex];
+                    
+                    // 添加跑燈效果到正確的順時鐘位置
+                    if (targetElement && !targetElement.classList.contains('center')) {
+                        targetElement.classList.add('running');
+                        console.log(`跑燈步驟 ${stepCount}: 順時鐘位置 ${currentClockwiseIndex} -> HTML位置 ${htmlIndex}`);
+                    }
+                    
+                    stepCount++;
+                    currentClockwiseIndex = (currentClockwiseIndex + 1) % 8; // 下一個順時鐘位置
+                    
+                    // 計算當前速度（最後幾步減速）
+                    let currentSpeed = baseSpeed;
+                    if (stepCount > totalSteps - 6) {
+                        currentSpeed = baseSpeed + (stepCount - (totalSteps - 6)) * 100;
+                    }
+                    
+                    // 檢查是否應該停止
+                    if (stepCount >= totalSteps) {
+                        // 清除跑燈效果
+                        allGridItems.forEach(item => {
+                            item.classList.remove('running');
+                        });
+                        resolve();
+                        return;
+                    }
+                    
+                    // 繼續下一步
+                    setTimeout(runNext, currentSpeed);
+                }
+                
+                // 開始跑燈
+                console.log('🎰 開始順時鐘跑燈動畫...');
+                runNext();
+            });
+        }
+
+        // 根據獎項ID找到對應的順時鐘位置
+        function findPrizePosition(prizeId) {
+            const gridItems = document.querySelectorAll('.grid-item:not(.center)');
+            
+            for (let i = 0; i < gridItems.length; i++) {
+                if (gridItems[i].dataset.prizeId === prizeId) {
+                    return parseInt(gridItems[i].dataset.clockwiseIndex);
+                }
+            }
+            
+            // 如果找不到，返回隨機位置
+            return Math.floor(Math.random() * 8);
+        }
+
+        // 停止跑燈動畫並顯示中獎
+        function stopRunningLights(winnerClockwiseIndex) {
+            const allGridItems = document.querySelectorAll('.grid-item');
+            const htmlPositions = window.htmlPositions || [0, 1, 2, 5, 8, 7, 6, 3];
+            
+            // 清除所有動畫
+            allGridItems.forEach(item => {
+                item.classList.remove('running', 'winner');
+            });
+            
+            // 如果有中獎位置，顯示中獎動畫
+            if (winnerClockwiseIndex >= 0 && winnerClockwiseIndex < 8) {
+                const htmlIndex = htmlPositions[winnerClockwiseIndex];
+                const winnerElement = allGridItems[htmlIndex];
+                
+                if (winnerElement && !winnerElement.classList.contains('center')) {
+                    winnerElement.classList.add('winner');
+                    console.log(`🎉 中獎位置: 順時鐘位置 ${winnerClockwiseIndex} -> HTML位置 ${htmlIndex}`);
+                }
+            }
+        }
+
+
+
+        // 顯示抽獎結果
+        function showResult(result) {
+            const modal = document.getElementById('resultModal');
+            const content = document.getElementById('resultContent');
+            
+            let resultHTML = '';
+            
+            if (result.isThanks) {
+                resultHTML = `
+                    <div class="result-icon thanks-icon">
+                        <i class="bi bi-heart"></i>
+                    </div>
+                    <h3 class="result-title">謝謝參加</h3>
+                    <p>感謝您的參與，下次再來挑戰吧！</p>
+                    <div style="margin: 1rem 0; color: #666;">
+                        <i class="bi bi-ticket-perforated"></i>
+                        剩餘抽獎券: ${result.remainingTickets} 張
+                    </div>
+                `;
+            } else {
+                resultHTML = `
+                    <div class="result-icon winner-icon">
+                        <i class="bi bi-trophy-fill"></i>
+                    </div>
+                    <h3 class="result-title">🎉 恭喜中獎！</h3>
+                    <div class="prize-info">
+                        <h4>${result.prizeName}</h4>
+                        <p>${result.description}</p>
+                    </div>
+                    <div style="margin: 1rem 0; color: #666;">
+                        <i class="bi bi-ticket-perforated"></i>
+                        剩餘抽獎券: ${result.remainingTickets} 張
+                    </div>
+                    <div style="color: #22c55e; font-size: 0.9rem;">
+                        <i class="bi bi-check-circle-fill"></i>
+                        獎品已自動加入兌換商品
+                    </div>
+                `;
+            }
+            
+            content.innerHTML = resultHTML;
+            modal.style.display = 'flex';
+            modal.classList.add('show'); // 立即顯示，不延遲
+        }
+
+        // 關閉結果彈窗
+        function closeResult() {
+            const modal = document.getElementById('resultModal');
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 150); // 配合動畫時間調整
+        }
+
+
+        
+        // 處理自動兌換
+        async function handleAutoExchange(prizeData) {
+            try {
+                const response = await fetch(API_BASE_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `action=convertPrizeToProduct&userId=${currentUser.userId}&prizeId=${prizeData.prizeId}&drawId=${prizeData.drawId}&accessToken=${liff.getAccessToken()}`
+                });
+                
+                const result = await response.json();
+                console.log('自動兌換結果:', result);
+            } catch (error) {
+                console.error('自動兌換失敗:', error);
+            }
+        }
+
+        // 顯示錯誤
+        function showError(message) {
+            alert(message);
+        }
+    </script>
+</body>
+</html> 
