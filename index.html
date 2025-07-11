@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>在地人團購點數系統 V1.0</title>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00C851;
+            --secondary-color: #FF6900;
+            --success-color: #00C851;
+            --danger-color: #FF4444;
+            --warning-color: #FFB347;
+            --info-color: #33b5e5;
+            --dark-color: #212529;
+            --light-color: #f8f9fa;
+        }
+        
+        body {
+            background: ghostwhite;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .container-fluid {
+            padding: 0;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header-points {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .points-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .points-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .points-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .points-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            padding: 1rem;
+        }
+        
+        .menu-item {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem 1rem;
+            text-align: center;
+            text-decoration: none;
+            color: var(--dark-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: none;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            color: var(--dark-color);
+        }
+        
+        .menu-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .menu-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .menu-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .page-content {
+            display: none;
+            padding: 1rem;
+        }
+        
+        .page-content.active {
+            display: block;
+        }
+        
+        .back-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .points-badge {
+            background: var(--success-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .exchange-btn {
+            background: var(--warning-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            width: 100%;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+        
+        .history-item {
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .history-date {
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .history-points {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .points-positive {
+            color: var(--success-color);
+        }
+        
+        .points-negative {
+            color: var(--danger-color);
+        }
+        
+        .qr-scanner {
+            background: white;
+            border-radius: 15px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        #qr-reader {
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .spinner-border {
+            color: var(--primary-color);
+        }
+        
+        .alert-custom {
+            border-radius: 10px;
+            border: none;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .btn-scan {
+            background: var(--info-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            width: 100%;
+            margin: 0.5rem 0;
+            font-weight: bold;
+        }
+        
+        .qr-expiry-select {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        
+        .redemption-status {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        
+        .status-redeemed {
+            background: var(--success-color);
+            color: white;
+        }
+        
+        .status-expired {
+            background: var(--danger-color);
+            color: white;
+        }
+        
+        .status-pending {
+            background: var(--warning-color);
+            color: white;
+        }
+        
+        .time-info {
+            line-height: 1.6;
+        }
+        
+        .redeem-action-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+        
+        .redeem-action-btn:hover {
+            background: var(--primary-color-dark);
+        }
+        
+        .redeem-action-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        /* 提示訊息樣式 */
+        #alertContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        
+        .alert-wrapper {
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+        }
+        
+        .alert-custom {
+            text-align: center;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            pointer-events: auto;
+            position: relative;
+            animation: alertFadeIn 0.3s ease-out;
+        }
+        
+        .alert-custom .btn-close {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            margin: 0;
+            opacity: 0.8;
+        }
+        
+        .alert-custom .btn-close:hover {
+            opacity: 1;
+        }
+        
+        .alert-custom.alert-success {
+            background-color: rgba(0, 200, 81, 0.95);
+            color: white;
+            border: none;
+        }
+        
+        .alert-custom.alert-danger {
+            background-color: rgba(255, 68, 68, 0.95);
+            color: white;
+            border: none;
+        }
+        
+        .alert-custom.alert-info {
+            background-color: rgba(51, 181, 229, 0.95);
+            color: white;
+            border: none;
+        }
+        
+        .alert-custom.alert-warning {
+            background-color: rgba(255, 179, 71, 0.95);
+            color: white;
+            border: none;
+        }
+        
+        @keyframes alertFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes alertFadeOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+        
+        /* 活動卡片狀態樣式 */
+        .activity-card.activity-disabled {
+            opacity: 0.6;
+            background: #f5f5f5;
+            border-left: 4px solid #ccc;
+        }
+        
+        .activity-card.activity-waiting {
+            opacity: 0.8;
+            background: #fff8e1;
+            border-left: 4px solid #ff9800;
+        }
+        
+        .activity-card.activity-available {
+            background: #f0f8ff;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .activity-card.activity-available:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 200, 81, 0.15);
+        }
+        
+        /* 記錄資訊樣式 */
+        .records-info {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: rgb(0, 0, 0);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .records-info i {
+            font-size: 1rem;
+            color: rgb(0, 0, 0);
+        }
+        
+        .lottery-result.out-of-stock-result {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .out-of-stock-icon {
+            font-size: 4rem;
+            color: #ff9800;
+            margin-bottom: 1.5rem;
+        }
+        
+        .lottery-retry-btn {
+            background: linear-gradient(135deg, #ff9800, #ff5722);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+        }
+        
+        .lottery-retry-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+        }
+        
+        .lottery-retry-btn i {
+            margin-right: 0.5rem;
+        }
+        
+        .out-of-stock-modal .lottery-result {
+            animation: fadeInUp 0.3s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .points-info-tooltip {
+            position: absolute;
+            background: #333333;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            white-space: normal;
+            z-index: 1000;
+            display: none;
+            top: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 0;
+            min-width: 330px;
+            max-width: 380px;
+            text-align: center;
+            word-wrap: break-word;
+            line-height: 1.5;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .points-info-icon[data-type="points"] .points-info-tooltip {
+            left: 0;
+            transform: translateX(-20%);
+        }
+
+        .points-info-icon[data-type="tickets"] .points-info-tooltip {
+            left: 50%;
+            transform: translateX(-48%);
+        }
+
+        .points-info-icon[data-type="unused"] .points-info-tooltip {
+            left: 50%;
+            right: 0;
+            transform: translateX(-91%);
+        }
+
+        .points-info-tooltip::before {
+            content: "";
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 0 8px 8px 8px;
+            border-style: solid;
+            border-color: transparent transparent #333333 transparent;
+        }
+
+        .points-info-icon[data-type="points"] .points-info-tooltip::before {
+            left: 20%;
+        }
+
+        .points-info-icon[data-type="unused"] .points-info-tooltip::before {
+            left: 80%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div id="mainContent">
+        <!-- Header -->
+        <div class="header">
+            <div class="container">
+                <div class="user-info-enhanced">
+                    <div class="user-top-section">
+                        <div class="user-avatar-large" id="userAvatar">U</div>
+                        <div class="user-identity">
+                            <div class="user-name-row">
+                                <div class="user-name-large" id="userName">載入中...</div>
+                                <span class="user-phone-large" id="userPhone">電話載入中...</span>
+                                <span class="account-status-large" id="accountStatus"    >會員等級載入中...</span>
+                                <!--  style="display: none;" 讓  會員等級暫時隱藏  -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-stats-enhanced">
+                        <div class="stat-item-large">
+                            <i class="bi bi-coin stat-icon-large"></i>
+                            <div class="stat-text">
+                                <div class="stat-value-large" id="headerPoints">0</div>
+                                <div class="stat-label-large">
+                                    點數
+                                    <i class="bi bi-info-circle points-info-icon" data-type="points" onclick="toggleTooltip(this)">
+                                        <div class="points-info-tooltip">本期點數將於 2025/12/31 到期</div>
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-item-large">
+                            <i class="bi bi-ticket-perforated stat-icon-large"></i>
+                            <div class="stat-text">
+                                <div class="stat-value-large" id="headerLotteryTickets">0</div>
+                                <div class="stat-label-large">抽獎券
+                                    <i class="bi bi-info-circle points-info-icon" data-type="tickets" onclick="toggleTooltip(this)">
+                                        <div class="points-info-tooltip">本期抽獎券將於 2025/12/31 到期</div>
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-item-large">
+                            <i class="bi bi-box-seam stat-icon-large"></i>
+                            <div class="stat-text">
+                                <div class="stat-value-large" id="headerUnusedCount">0</div>
+                                <div class="stat-label-large">兌換商品
+                                    <i class="bi bi-info-circle points-info-icon" data-type="unused" onclick="toggleTooltip(this)">
+                                        <div class="points-info-tooltip">若帳號因多次未取而被封鎖，點數、抽獎券與待使用商品都將歸零，還請留意</div>
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主頁面 -->
+        <div id="mainPage">
+            <div class="menu-grid">
+                <button class="menu-item" onclick="showPage('earnPage')">
+                    <i class="bi bi-plus-circle menu-icon"></i>
+                    <div class="menu-title">領取點數</div>
+                    <div class="menu-desc">掃描QR碼或參與活動</div>
+                </button>
+                <button class="menu-item" onclick="showPage('productsPage')">
+                    <i class="bi bi-bag menu-icon"></i>
+                    <div class="menu-title">兌換商品</div>
+                    <div class="menu-desc">使用點數兌換商品</div>
+                </button>
+                <button class="menu-item" onclick="showPage('exchangedPage')">
+                    <i class="bi bi-box-seam menu-icon"></i>
+                    <div class="menu-title">已兌換商品</div>
+                    <div class="menu-desc">查看已兌換的商品</div>
+                </button>
+                <button class="menu-item" onclick="showPage('lotteryPage')">
+                    <i class="bi bi-gift menu-icon"></i>
+                    <div class="menu-title">幸運抽獎</div>
+                    <div class="menu-desc">使用抽獎券抽大獎</div>
+                </button>
+                <button class="menu-item" onclick="showPage('recordsPage')">
+                    <i class="bi bi-journal-text menu-icon"></i>
+                    <div class="menu-title">記錄查詢</div>
+                    <div class="menu-desc">點數異動與抽獎紀錄</div>
+                </button>
+                <button class="menu-item" onclick="showPage('leaderboardPage')">
+                    <i class="bi bi-trophy menu-icon"></i>
+                    <div class="menu-title">點數排行榜</div>
+                    <div class="menu-desc">查看點數排名前30名</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- 記錄查詢頁面 -->
+        <div id="recordsPage" class="page-content">
+            <div class="page-header">
+                <h4 class="mb-3">📋 記錄查詢</h4>
+                <div class="update-info">
+                    <span id="recordsLastUpdateTime" class="update-time">請按右側按鈕更新</span>
+                    <button id="recordsManualRefreshBtn" class="manual-refresh-btn" onclick="manualRefreshRecords()">
+                        <i class="bi bi-arrow-clockwise"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 分頁標籤 -->
+            <div class="records-tabs">
+                <button id="pointsRecordsTabBtn" class="tab-btn tab-active" onclick="switchRecordsTab('points')">
+                    <i class="bi bi-coin"></i> 點數異動
+                </button>
+                <button id="lotteryRecordsTabBtn" class="tab-btn tab-inactive" onclick="switchRecordsTab('lottery')">
+                    <i class="bi bi-ticket-detailed"></i> 抽獎紀錄
+                </button>
+            </div>
+            
+            <!-- 點數異動記錄區 -->
+            <div id="pointsRecordsTab" class="tab-content active">
+                <div class="records-info">
+                    <i class="bi bi-info-circle"></i>
+                    <span>顯示最近20筆點數異動記錄</span>
+                </div>
+                <div id="historyList" class="loading">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">載入中...</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 抽獎記錄區 -->
+            <div id="lotteryRecordsTab" class="tab-content">
+                <div class="records-info">
+                    <i class="bi bi-info-circle"></i>
+                    <span>顯示最近30筆抽獎記錄</span>
+                </div>
+                <div id="lotteryHistoryList" class="loading">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">載入中...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 已兌換商品頁面 -->
+        <div id="exchangedPage" class="page-content">
+            <div class="page-header">
+                <h4 class="mb-3">📦 已兌換商品</h4>
+            </div>
+            
+            <!-- 分頁標籤 -->
+            <div class="exchange-tabs">
+                <button id="unusedTabBtn" class="tab-btn tab-active" onclick="switchExchangeTab('unused')">
+                    <i class="bi bi-box-seam"></i> 待使用商品
+                </button>
+                <button id="usedTabBtn" class="tab-btn tab-inactive" onclick="switchExchangeTab('used')">
+                    <i class="bi bi-check2-circle"></i> 已使用商品
+                </button>
+            </div>
+            
+            <!-- 待使用商品區 -->
+            <div id="unusedProductsTab" class="tab-content active">
+                <div id="unusedProductsList"></div>
+            </div>
+            
+            <!-- 已使用商品區 -->
+            <div id="usedProductsTab" class="tab-content">
+                <div class="records-info">
+                    <i class="bi bi-info-circle"></i>
+                    <span>顯示最近40筆已使用商品</span>
+                </div>
+                <div id="usedProductsList"></div>
+            </div>
+        </div>
+
+        <!-- 領取點數頁面 -->
+        <div id="earnPage" class="page-content">
+            <div class="page-header">
+                <h4 class="mb-3">🎯 領取點數</h4>
+            </div>
+            
+            <!-- QR掃描器區域 -->
+            <div class="qr-scanner mb-4">
+                <h5 class="mb-3">QR Code 掃描</h5>
+                <div id="qr-reader" style="width: 100%"></div>
+                <div id="scanStatus"></div>
+                <button id="startScanBtn" class="btn-scan mt-3" onclick="startQRScanner()">
+                    <i class="bi bi-camera"></i> 開始掃描
+                </button>
+                <button id="stopScanBtn" class="btn-scan mt-2" onclick="stopQRScanner()" style="display: none;">
+                    <i class="bi bi-stop-circle"></i> 停止掃描
+                </button>
+            </div>
+            
+            <h5 class="mb-3" id="activitiesTitle">可領取的活動 (0)</h5>
+            <div id="earnActivitiesList">
+                <div class="loading">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 商品兌換頁面 -->
+        <div id="productsPage" class="page-content">
+            <div class="page-header">
+                <h4 class="mb-3">🛒 商品兌換</h4>
+            </div>
+            <div id="productsList" class="loading">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">載入中...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 點數排行榜頁面 -->
+        <div id="leaderboardPage" class="page-content">
+            <div class="page-header">
+                <h4 class="mb-3">🏆 點數排行榜</h4>
+                <div class="update-info">
+                    <span id="leaderboardLastUpdateTime" class="update-time">請按右側按鈕更新</span>
+                    <button id="leaderboardManualRefreshBtn" class="manual-refresh-btn" onclick="manualRefreshLeaderboard()">
+                        <i class="bi bi-arrow-clockwise"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 我的排名 -->
+            <div class="section">
+                <div class="section-title">我的排名</div>
+                <div id="myRankCard" class="loading">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">載入中...</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 排行榜 -->
+            <div class="section">
+                <div class="section-title">前30名排行榜</div>
+                <div id="leaderboardList" class="leaderboard-grid">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">載入中...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 抽獎頁面 -->
+        <div id="lotteryPage" class="page-content">
+            <div class="page-header">
+                <h4 class="mb-3">🎁 幸運抽獎</h4>
+            </div>
+            
+
+            
+            <!-- 九宮格抽獎區域 -->
+            <div class="lottery-grid-container mb-4">
+                <div class="lottery-grid" id="lotteryGrid">
+                    <!-- 動態生成九宮格區塊 -->
+                </div>
+            </div>
+            
+            <!-- 抽獎按鈕 -->
+            <div class="lottery-action mb-4">
+                <button id="drawLotteryBtn" class="lottery-draw-btn" onclick="drawLottery()">
+                    <i class="bi bi-gift"></i> 開始抽獎
+                </button>
+                <div class="lottery-notice">
+                    <i class="bi bi-info-circle"></i>
+                    每次抽獎消耗1張抽獎券
+                </div>
+            </div>
+            
+            <!-- 獎項展示區 -->
+            <div class="section">
+                <div class="section-title">🏆 獎項一覽</div>
+                <div id="lotteryContainer">
+                    <div id="lotteryPrizesContainer" class="prizes-grid">
+                        <div class="loading">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">載入中...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- 固定功能按鈕 -->
+    <div class="fixed-btns-container">
+        <button class="fixed-btn home-btn-fixed" onclick="showPage('mainPage')" title="回首頁">
+            <i class="bi bi-house-fill"></i>
+        </button>
+    </div>
+
+    <!-- 抽獎結果彈窗 -->
+    <div id="lotteryResultModal" class="lottery-modal" style="display: none;">
+        <div class="lottery-modal-content">
+            <div id="lotteryResultContent">
+                <!-- 動態內容 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 商品使用確認對話框 -->
+    <div id="useProductModal" class="use-product-modal">
+        <div class="use-product-dialog">
+            <div class="use-product-header">
+                <div class="use-product-icon">
+                    <i class="bi bi-exclamation-triangle"></i>
+                </div>
+                <h3 class="use-product-title">確認使用商品</h3>
+            </div>
+            
+            <div class="use-product-content">
+                <div class="use-product-name">
+                    <h5 id="useProductName">商品名稱</h5>
+                </div>
+                
+                <div class="use-product-warning">
+                    <div class="warning-title">
+                        <i class="bi bi-exclamation-circle"></i>
+                        重要提醒
+                    </div>
+                    <p class="warning-text">
+                        使用後將無法依據任何原因進行復原
+                    </p>
+                </div>
+                
+                <div class="use-product-notice">
+                    <i class="bi bi-shield-check"></i>
+                    請在現場人員的協助下進行此操作
+                </div>
+            </div>
+            
+            <div class="use-product-actions">
+                <button class="use-product-btn use-product-btn-cancel" onclick="closeUseProductModal()">
+                    <i class="bi bi-x-circle"></i>
+                    否
+                </button>
+                <button class="use-product-btn use-product-btn-confirm" id="confirmUseProductBtn">
+                    <i class="bi bi-check-circle"></i>
+                    是
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 提示訊息 -->
+    <div id="alertContainer" style="position: fixed; top: 20px; left: 20px; right: 20px; z-index: 9999;"></div>
+
+        </div> <!-- mainContent end -->
+    <!-- 版權聲明 -->
+    <footer class="text-center py-3 mt-4" style="background-color: rgba(255, 255, 255, 0.9); border-top: 1px solid #eee;">
+        <small class="text-muted">
+            ©在地人團購版權所有 <span id="copyright-year"></span> 
+        </small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js?v=1.3"></script>
+    <script>
+        // 自動更新版權年份
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
