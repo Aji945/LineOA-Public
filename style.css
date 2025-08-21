@@ -1,0 +1,3546 @@
+::root {
+    --primary-color: #00C851;
+    --secondary-color: #FF6900;
+    --success-color: #00C851;
+    --danger-color: #FF4444;
+    --warning-color: #FFB347;
+    --info-color: #33b5e5;
+    --dark-color: #212529;
+    --light-color: #f8f9fa;
+}
+
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
+.header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+        /* 增強的用戶信息布局 */
+        .user-info-enhanced {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            width: 100%;
+            padding: 0.3rem 0;
+        }
+        
+        .user-top-section {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .user-avatar-large {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 200, 81, 0.4);
+            border: 3px solid rgba(255, 255, 255, 0.9);
+        }
+        
+        .user-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            min-width: 0;
+        }
+        
+        .user-identity {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+        }
+        
+        .user-name-row {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: nowrap;
+        }
+
+        /* 增強版用戶信息樣式 */
+        .user-name-large {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #2c3e50;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 140px;
+            line-height: 1.1;
+            flex-shrink: 0;
+        }
+
+        .user-phone-large {
+            font-size: 1.1rem;
+            color: #495057;
+            font-weight: 600;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .account-status-large {
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        
+        /* 增強版統計項目 */
+        .user-stats-enhanced {
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item-large {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0.5rem 0.7rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 200, 81, 0.2);
+            min-width: 80px;
+        }
+        
+        .stat-icon-large {
+            font-size: 1.6rem;
+            color: var(--primary-color);
+            flex-shrink: 0;
+        }
+        
+        .stat-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .stat-value-large {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            line-height: 1;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        .stat-label-large {
+            font-size: 0.9rem;
+            color: #6c757d;
+            font-weight: 600;
+            margin-top: 1px;
+            line-height: 1;
+        }
+
+/* 會員等級樣式 */
+.account-status.diamond,
+.account-status-large.diamond {
+    background: linear-gradient(135deg, #E8F4FD, #B6E5FC);
+    color: #0277BD;
+    border: 2px solid #0288D1;
+    font-weight: 700;
+}
+
+.account-status.platinum,
+.account-status-large.platinum {
+    background: linear-gradient(135deg, #F3F4F6, #E5E7EB);
+    color: #374151;
+    border: 2px solid #6B7280;
+    font-weight: 700;
+}
+
+.account-status.gold,
+.account-status-large.gold {
+    background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+    color: #D97706;
+    border: 2px solid #F59E0B;
+    font-weight: 700;
+}
+
+.account-status.normal,
+.account-status-large.normal {
+    background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
+    color: #16A34A;
+    border: 2px solid #22C55E;
+    font-weight: 600;
+}
+
+.account-status.loading,
+.account-status-large.loading {
+    background: #F3F4F6;
+    color: #6B7280;
+    border: 1px solid #D1D5DB;
+    font-weight: 500;
+}
+
+.account-status.error,
+.account-status-large.error {
+    background: #FEE2E2;
+    color: #DC2626;
+    border: 1px solid #F87171;
+    font-weight: 500;
+}
+
+        .user-stats {
+            display: flex;
+            gap: 0.6rem;
+            flex-shrink: 0;
+            align-items: center;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #ffffff;
+            color: #2c3e50;
+            padding: 0.8rem 1.2rem;
+            border-radius: 14px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(0, 200, 81, 0.2);
+            min-width: 110px;
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            background: rgba(0, 200, 81, 0.1);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            min-width: 0;
+        }
+        
+        .stat-label {
+            font-size: 0.7rem;
+            color: #6c757d;
+            margin-bottom: 2px;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            line-height: 1;
+        }
+        
+        .stat-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+.points-display {
+    background: linear-gradient(135deg, var(--primary-color), var(--info-color));
+    color: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin: 1rem;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 200, 81, 0.3);
+}
+
+.points-number {
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 0.5rem 0;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+    max-width: 800px; /* 限制最大寬度 */
+    margin: 0 auto; /* 置中對齊 */
+}
+
+.menu-item {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem 1rem;
+    text-align: center;
+    text-decoration: none;
+    color: var(--dark-color);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: none;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    color: var(--dark-color);
+}
+
+.menu-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.menu-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.menu-desc {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.page-content {
+    display: none;
+    padding: 1rem;
+}
+
+.page-content.active {
+    display: block;
+}
+
+/* 點數異動紀錄頁面全寬顯示 */
+#historyPage {
+    padding: 1rem 0.5rem;
+}
+
+#historyPage .page-header {
+    padding: 0 1rem;
+}
+
+#historyList {
+    padding: 0 0.5rem;
+}
+
+/* 排行榜頁面全寬顯示 */
+#leaderboardPage {
+    padding: 1rem 0.5rem;
+}
+
+#leaderboardPage .page-header {
+    padding: 0 1rem;
+}
+
+#myRankCard,
+#leaderboardList {
+    padding: 0 0.5rem;
+}
+
+.back-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+.activity-card, .product-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.activity-card h5 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.points-badge {
+    background: var(--success-color);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.claim-btn {
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    width: 100%;
+    margin-top: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.exchange-btn {
+    background: var(--warning-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    width: 100%;
+    margin-top: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.history-item {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 0.8rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    max-width: 100%;
+    width: 100%;
+}
+
+.history-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.history-content {
+    flex: 1;
+    margin-right: 1rem;
+}
+
+.history-type {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.history-type i {
+    margin-right: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.history-related {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0.3rem 0;
+}
+
+.history-method {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #888;
+    margin: 0.3rem 0;
+}
+
+.history-method i {
+    margin-right: 0.4rem;
+}
+
+.history-date {
+    font-size: 0.85rem;
+    color: #999;
+    margin-top: 0.5rem;
+}
+
+.history-points {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+}
+
+/* 異動類型顏色 */
+.type-activity {
+    border-left: 4px solid #4CAF50;
+}
+
+.type-activity .history-type i {
+    color: #4CAF50;
+}
+
+.type-exchange {
+    border-left: 4px solid #2196F3;
+}
+
+.type-exchange .history-type i {
+    color: #2196F3;
+}
+
+.type-use {
+    border-left: 4px solid #FF9800;
+}
+
+.type-use .history-type i {
+    color: #FF9800;
+}
+
+.type-other {
+    border-left: 4px solid #9E9E9E;
+}
+
+.type-other .history-type i {
+    color: #9E9E9E;
+}
+
+.points-positive {
+    color: #4CAF50;
+}
+
+.points-negative {
+    color: #F44336;
+}
+
+.qr-scanner {
+    background: white;
+    border-radius: 15px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+#qr-reader {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.loading {
+    text-align: center;
+    padding: 1rem;
+}
+
+.spinner-border {
+    color: var(--primary-color);
+}
+
+.alert-custom {
+    border-radius: 10px;
+    border: none;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.btn-scan {
+    background: var(--info-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    width: 100%;
+    margin: 0.5rem 0;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* 抽獎結果彈窗 */
+.lottery-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.lottery-modal.show {
+    opacity: 1;
+}
+
+.lottery-modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 1rem;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.15s ease;
+}
+
+.lottery-modal.show .lottery-modal-content {
+    transform: scale(1);
+}
+
+.lottery-result {
+    padding: 1rem 0;
+}
+
+.result-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.thanks-icon {
+    color: #FF6B9D;
+}
+
+.winner-icon {
+    color: #FFD700;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+.result-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.prize-info {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 15px;
+    color: white;
+}
+
+.prize-name {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.prize-description {
+    opacity: 0.9;
+    margin: 0;
+}
+
+.remaining-tickets {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    padding: 0.8rem;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 10px;
+    color: #667eea;
+    font-weight: 500;
+}
+
+.claim-notice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.8rem;
+    background: rgba(34, 197, 94, 0.1);
+    border-radius: 10px;
+    color: #22c55e;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.lottery-close-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.lottery-close-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.lottery-close-btn:active {
+    transform: translateY(0);
+}
+
+/* 謝謝參加樣式 */
+.thanks-modal .lottery-modal-content {
+    border: 3px solid #FF6B9D;
+}
+
+.thanks-result .remaining-tickets {
+    background: rgba(255, 107, 157, 0.1);
+    color: #FF6B9D;
+}
+
+/* 中獎樣式 */
+.winner-modal .lottery-modal-content {
+    border: 3px solid #FFD700;
+    background: linear-gradient(135deg, #fff9e6, #ffffff);
+}
+
+@media (max-width: 768px) {
+    .points-number {
+        font-size: 2.5rem;
+    }
+    
+    .menu-grid {
+        gap: 0.8rem;
+        padding: 0.8rem;
+    }
+    
+    .menu-item {
+        padding: 1.5rem 0.8rem;
+    }
+    
+    .menu-icon {
+        font-size: 2.5rem;
+    }
+} 
+
+/* 可領取活動卡片樣式 */
+.activity-earn-card {
+    background: white;
+    border-radius: 20px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.activity-earn-card.available {
+    border-color: var(--success-color);
+    background: linear-gradient(135deg, #ffffff 0%, #f8fff9 100%);
+    animation: pulse-available 2s infinite;
+}
+
+.activity-earn-card.unavailable {
+    opacity: 0.7;
+    background: #f8f9fa;
+    border-color: #dee2e6;
+}
+
+.activity-earn-card.available::before {
+    content: '可領取';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--success-color);
+    color: white;
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+@keyframes pulse-available {
+    0% { transform: scale(1); box-shadow: 0 8px 32px rgba(0, 200, 81, 0.1); }
+    50% { transform: scale(1.02); box-shadow: 0 12px 40px rgba(0, 200, 81, 0.2); }
+    100% { transform: scale(1); box-shadow: 0 8px 32px rgba(0, 200, 81, 0.1); }
+}
+
+.activity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.activity-info {
+    flex: 1;
+    margin-right: 1rem;
+}
+
+.activity-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+.activity-desc {
+    color: #666;
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+}
+
+.activity-limits {
+    background: rgba(52, 58, 64, 0.05);
+    padding: 0.5rem;
+    border-radius: 8px;
+}
+
+.points-display-large {
+    background: linear-gradient(135deg, var(--success-color), var(--info-color));
+    color: white;
+    padding: 1rem;
+    border-radius: 15px;
+    text-align: center;
+    min-width: 80px;
+    box-shadow: 0 4px 20px rgba(0, 200, 81, 0.3);
+}
+
+.points-number {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.points-text {
+    display: block;
+    font-size: 0.8rem;
+    opacity: 0.9;
+}
+
+.activity-actions {
+    margin-top: 1rem;
+}
+
+.btn-claim-large {
+    background: linear-gradient(135deg, var(--secondary-color), #ff8533);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: bold;
+    box-shadow: 0 6px 24px rgba(255, 105, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-claim-large:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 105, 0, 0.4);
+    background: linear-gradient(135deg, #ff5722, var(--secondary-color));
+}
+
+.btn-claim-disabled {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    width: 100%;
+    font-size: 1rem;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.participation-history {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    background: rgba(108, 117, 125, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid var(--info-color);
+}
+
+/* QR掃描狀態樣式 */
+.scan-status {
+    padding: 1rem;
+    border-radius: 10px;
+    margin: 1rem 0;
+    text-align: center;
+    font-weight: 500;
+}
+
+.scan-status.loading {
+    background: #e3f2fd;
+    color: #1976d2;
+    border: 2px solid #bbdefb;
+}
+
+.scan-status.active {
+    background: #e8f5e8;
+    color: #2e7d32;
+    border: 2px solid #c8e6c9;
+    animation: blink 1.5s infinite;
+}
+
+.scan-status.success {
+    background: #e8f5e8;
+    color: #1b5e20;
+    border: 2px solid #4caf50;
+}
+
+.scan-status.error {
+    background: #ffebee;
+    color: #c62828;
+    border: 2px solid #ef5350;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.7; }
+}
+
+/* 商品卡片改進樣式 */
+.product-card {
+    background: white;
+    border-radius: 20px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.product-card.low-stock {
+    border-color: #ffc107;
+    background: linear-gradient(135deg, #ffffff 0%, #fffbf0 100%);
+}
+
+.product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.product-info {
+    flex: 1;
+    margin-right: 1rem;
+}
+
+.product-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--dark-color);
+    margin-bottom: 0.5rem;
+}
+
+.product-desc {
+    color: #666;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.product-details {
+    background: rgba(52, 58, 64, 0.05);
+    padding: 0.8rem;
+    border-radius: 8px;
+}
+
+.stock-info, .expiration-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.stock-info:last-child, .expiration-info:last-child {
+    margin-bottom: 0;
+}
+
+.points-cost {
+    background: linear-gradient(135deg, var(--warning-color), #ffcc80);
+    color: white;
+    padding: 1rem;
+    border-radius: 15px;
+    text-align: center;
+    min-width: 80px;
+    box-shadow: 0 4px 20px rgba(255, 179, 71, 0.3);
+}
+
+.cost-number {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.cost-text {
+    display: block;
+    font-size: 0.8rem;
+    opacity: 0.9;
+}
+
+.exchange-btn {
+    background: linear-gradient(135deg, var(--warning-color), #ffcc80);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: bold;
+    box-shadow: 0 6px 24px rgba(255, 179, 71, 0.3);
+    transition: all 0.3s ease;
+}
+
+.exchange-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 179, 71, 0.4);
+    background: linear-gradient(135deg, #ff9800, var(--warning-color));
+}
+
+.exchange-btn.sold-out {
+    background: #6c757d;
+    color: white;
+    cursor: not-allowed;
+    opacity: 0.7;
+    box-shadow: none;
+}
+
+/* 空狀態和錯誤訊息樣式 */
+.no-activities, .no-products {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #6c757d;
+    font-size: 1.1rem;
+}
+
+.error-message {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: #721c24;
+    background: #f8d7da;
+    border-radius: 15px;
+    border: 1px solid #f5c6cb;
+    margin: 1rem 0;
+}
+
+.error-message i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #dc3545;
+}
+
+.error-message h5 {
+    color: #721c24;
+    margin-bottom: 0.5rem;
+}
+
+.error-message p {
+    color: #856404;
+    margin-bottom: 1rem;
+}
+
+.error-message .btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--info-color));
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.error-message .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 200, 81, 0.3);
+}
+
+/* 提升掃描按鈕樣式 */
+#startScanBtn, #stopScanBtn {
+    background: linear-gradient(135deg, var(--primary-color), var(--info-color));
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    box-shadow: 0 6px 24px rgba(0, 200, 81, 0.3);
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+#startScanBtn:hover:not(:disabled), #stopScanBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 200, 81, 0.4);
+}
+
+#startScanBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#stopScanBtn {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    box-shadow: 0 6px 24px rgba(220, 53, 69, 0.3);
+}
+
+#stopScanBtn:hover {
+    box-shadow: 0 10px 30px rgba(220, 53, 69, 0.4);
+}
+
+/* 響應式設計改進 */
+@media (max-width: 768px) {
+    .activity-header, .product-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .activity-info, .product-info {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+    
+    .points-display-large, .points-cost {
+        align-self: flex-end;
+    }
+}
+
+/* 活動卡片容器 */
+.activities-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+    background: transparent;
+}
+
+/* 可領取活動卡片 - 緊湊橫向設計 */
+.activity-card {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+    padding: 12px;
+    position: relative;
+    transition: all 0.2s ease;
+    border: 1px solid #e8e8e8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 60px;
+}
+
+.activity-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* 活動左側內容 */
+.activity-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+/* 活動標題 */
+.activity-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #1a73e8;
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* 活動描述 */
+.activity-description {
+    font-size: 1rem;
+    color: #666666;
+    margin: 0;
+    line-height: 1.2;
+    font-weight: 400;
+}
+
+/* 活動時間資訊 */
+.activity-time {
+    margin-top: 0.5rem;
+    margin-bottom: 0rem;
+}
+
+.time-status {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    background: #e8f5e9;
+    color: #2e7d32;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.time-status.urgent {
+    background: #ffebee;
+    color: #c62828;
+}
+
+.time-status i {
+    margin-right: 0.5rem;
+}
+
+.qr-only-notice {
+    background: rgba(0, 123, 255, 0.1);
+    color: var(--primary-color);
+    padding: 0.8rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-width: 120px;
+    border: 1px solid rgba(0, 123, 255, 0.2);
+}
+
+.qr-only-notice i {
+    font-size: 1.1rem;
+}
+
+/* 活動右側 */
+.activity-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 100px;
+    justify-content: flex-end;
+}
+
+/* 活動獎勵點數 */
+.activity-points {
+    font-size: 1.4rem;
+    color: #00c851;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* 活動按鈕 */
+.activity-button {
+    background: linear-gradient(135deg, #1a73e8, #1557b0);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 80px;
+}
+
+.activity-button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.4);
+}
+
+.activity-button:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* 活動狀態指示器 */
+.activity-status {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.status-available {
+    background: linear-gradient(135deg, #00c851, #00a647);
+    color: #ffffff;
+}
+
+.status-claimed {
+    background: linear-gradient(135deg, #ea4335, #d33b2c);
+    color: #ffffff;
+}
+
+.status-waiting {
+    background: linear-gradient(135deg, #fbbc05, #f9a825);
+    color: #000000;
+}
+
+.status-redeemed {
+    background: var(--success-color);
+    color: white;
+}
+
+.status-expired {
+    background: var(--danger-color);
+    color: white;
+}
+
+.status-pending {
+    background: var(--warning-color);
+    color: white;
+}
+
+/* 活動類型標籤 */
+.activity-type {
+    position: absolute;
+    top: -4px;
+    left: 10px;
+    padding: 2px 6px;
+    background: linear-gradient(135deg, #4285f4, #3367d6);
+    color: #ffffff;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    z-index: 1;
+    box-shadow: 0 1px 4px rgba(66, 133, 244, 0.3);
+}
+
+/* 進行中活動卡片 - 緊湊縱向設計 */
+.activity-card-vertical {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    position: relative;
+    transition: all 0.2s ease;
+    border: 1px solid #e8e8e8;
+    margin-bottom: 8px;
+}
+
+.activity-card-vertical:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.activity-card-vertical .activity-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 6px;
+}
+
+.activity-card-vertical .activity-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a73e8;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.activity-card-vertical .activity-description {
+    font-size: 1rem;
+    color: #666666;
+    margin: 0 0 6px 0;
+    line-height: 1.3;
+}
+
+.activity-card-vertical .activity-points-large {
+    background: linear-gradient(135deg, #00c851, #00a647);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    min-width: 50px;
+}
+
+/* 商品兌換卡片 - 緊湊橫向設計 */
+.product-card {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+    padding: 12px;
+    position: relative;
+    transition: all 0.2s ease;
+    border: 1px solid #e8e8e8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 60px;
+    margin-bottom: 8px;
+}
+
+.product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* 商品左側內容 */
+.product-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.product-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1a73e8;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.product-description {
+    font-size: 0.8rem;
+    color: #666666;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.product-details {
+    font-size: 1rem;
+    color: #888888;
+    margin: 0;
+}
+
+/* 商品右側 */
+.product-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 120px;
+    justify-content: flex-end;
+}
+
+.product-cost {
+    font-size: 1.5rem;
+    color: #00c851;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* 商品兌換按鈕 */
+.product-exchange-btn {
+    background: linear-gradient(135deg, #1a73e8, #1557b0);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 80px;
+}
+
+.product-exchange-btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.4);
+}
+
+.product-exchange-btn:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* 商品狀態標籤 */
+.product-status {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 0.6rem;
+    font-weight: 500;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.status-available {
+    background: linear-gradient(135deg, #00c851, #00a647);
+    color: #ffffff;
+}
+
+.status-low-stock {
+    background: linear-gradient(135deg, #fbbc05, #f9a825);
+    color: #000000;
+}
+
+.status-out-of-stock {
+    background: linear-gradient(135deg, #ea4335, #d33b2c);
+    color: #ffffff;
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+    .activity-card, .product-card {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        min-height: auto;
+        padding: 10px;
+    }
+    
+    .activity-left, .product-left {
+        margin-bottom: 8px;
+    }
+    
+    .activity-right, .product-right {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        min-width: auto;
+    }
+    
+    .activity-button, .product-exchange-btn {
+        width: 50px;
+        font-size: 1.1rem;
+        padding: 4px 6px;
+    }
+    
+    .activity-points {
+        font-size: 1.2rem;
+    }
+}
+
+/* 頁面標題樣式改進 */
+.page-content h4 {
+    color: #000000 !important;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.page-content h5 {
+    color: black !important;
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+/* 返回按鈕和重新整理按鈕容器 */
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 1px;
+    padding: 0;
+}
+
+.page-header h4 {
+    margin: 0;
+    flex: 1;
+}
+
+.update-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.update-time {
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, 0.9);
+    background: rgba(255, 255, 255, 0.15);
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    white-space: nowrap;
+    font-weight: 500;
+    margin: 0;
+}
+
+.manual-refresh-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.manual-refresh-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.manual-refresh-btn:active {
+    transform: translateY(0);
+}
+
+.manual-refresh-btn i {
+    transition: transform 0.3s ease;
+}
+
+.manual-refresh-btn.refreshing i {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.back-btn, .refresh-btn {
+    background: rgba(255, 255, 255, 0.9);
+    color: #1a73e8;
+    border: none;
+    padding: 0;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    backdrop-filter: blur(10px);
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-btn {
+    padding: 0 20px;
+}
+
+.refresh-btn {
+    width: 44px;
+}
+
+.back-btn:hover, .refresh-btn:hover {
+    background: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.back-btn i {
+    margin-right: 8px;
+}
+
+/* 固定按鈕容器 */
+.fixed-btns-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 9998;
+}
+
+/* 固定按鈕基本樣式 */
+.fixed-btn {
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    backdrop-filter: blur(10px);
+}
+
+/* 固定返回按鈕 */
+.back-btn-fixed {
+    background: linear-gradient(135deg, #6c757d, #495057);
+    color: white;
+}
+
+/* 固定重新整理按鈕 */
+.refresh-btn-fixed {
+    background: linear-gradient(135deg, #0d6efd, #0a58ca);
+    color: white;
+}
+
+/* 固定首頁按鈕 */
+.home-btn-fixed {
+    background: linear-gradient(135deg, var(--primary-color), var(--info-color));
+    color: white;
+}
+
+/* 按鈕懸停效果 */
+.fixed-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.fixed-btn:active {
+    transform: translateY(-1px);
+}
+
+/* 移除舊的按鈕樣式 */
+
+/* 商品兌換頁面標題區域 */
+.products-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.products-title {
+    color: #ffffff !important;
+    font-weight: 700;
+    margin: 0;
+    flex: 1;
+}
+
+.current-points-display {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--primary-color);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(0, 200, 81, 0.3);
+    min-width: 120px;
+    text-align: center;
+}
+
+.current-points-display .points-label {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    display: block;
+}
+
+.current-points-display .points-value {
+    font-size: 1.2rem;
+    font-weight: 800;
+    display: block;
+}
+
+/* section 背景透明化，讓文字更清晰 */
+.section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 13px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.section-title {
+    color: #1a73e8;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(26, 115, 232, 0.2);
+}
+
+/* 移動端適配 */
+@media (max-width: 768px) {
+    .activity-card {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        min-height: auto;
+        padding: 15px;
+    }
+    
+    .activity-left {
+        margin-bottom: 10px;
+    }
+    
+    .activity-right {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        min-width: auto;
+    }
+    
+    .activity-button {
+        width: 100px;
+        font-size: 1.3rem;
+        height: 40px;
+    
+    }
+    
+    .activity-points {
+        font-size: 2rem;
+    }
+}
+
+
+/* 已兌換商品卡片樣式 */
+.exchanged-product-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e8e8e8;
+    transition: all 0.2s ease;
+}
+
+.exchanged-product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.exchanged-product-card .product-left {
+    flex: 1;
+    padding-right: 15px;
+}
+
+.exchanged-product-card .product-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a73e8;
+    margin-bottom: 4px;
+}
+
+.exchanged-product-card .product-description {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.exchanged-product-card .exchange-info {
+    font-size: 0.8rem;
+    color: #666;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.exchanged-product-card .exchange-time,
+.exchanged-product-card .use-time {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.exchanged-product-card .use-time {
+    color: #00c851;
+}
+
+.use-product-btn {
+    background: linear-gradient(135deg, #1a73e8, #1557b0);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 15px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 100px;
+    text-align: center;
+}
+
+.use-product-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.4);
+}
+
+/* 已使用商品卡片特殊樣式 */
+.exchanged-product-card.used {
+    background: #f8f9fa;
+    opacity: 0.8;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .exchanged-product-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .exchanged-product-card .product-left {
+        padding-right: 0;
+    }
+
+    .exchanged-product-card .exchange-info {
+        justify-content: center;
+    }
+
+    .use-product-btn {
+        width: 100%;
+    }
+}
+
+/* 分區標題樣式 */
+.section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.section-title {
+    color: #1a73e8;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(26, 115, 232, 0.2);
+}
+
+/* 空狀態提示 */
+.no-products {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-size: 0.9rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    margin: 10px 0;
+} 
+
+/* 排行榜樣式 */
+.rank-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.2rem 1.5rem;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e8e8e8;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    width: 100%;
+    max-width: 100%;
+}
+
+.rank-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.rank-card.my-rank {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    border: 2px solid #ffc107;
+    box-shadow: 0 4px 20px rgba(255, 193, 7, 0.3);
+}
+
+.rank-card.top-3 {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border: 2px solid #6c757d;
+}
+
+.rank-card.rank-1 {
+    background: linear-gradient(135deg, #fff3cd, #ffd700);
+    border: 2px solid #ffc107;
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+}
+
+.rank-card.rank-2 {
+    background: linear-gradient(135deg, #f8f9fa, #c0c0c0);
+    border: 2px solid #6c757d;
+    box-shadow: 0 4px 20px rgba(192, 192, 192, 0.3);
+}
+
+.rank-card.rank-3 {
+    background: linear-gradient(135deg, #fff3cd, #cd7f32);
+    border: 2px solid #fd7e14;
+    box-shadow: 0 4px 20px rgba(205, 127, 50, 0.3);
+}
+
+.rank-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.rank-number {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0, 200, 81, 0.3);
+    flex-shrink: 0;
+}
+
+.rank-number.rank-1 {
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #333;
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+}
+
+.rank-number.rank-2 {
+    background: linear-gradient(135deg, #c0c0c0, #e0e0e0);
+    color: #333;
+    box-shadow: 0 2px 8px rgba(192, 192, 192, 0.4);
+}
+
+.rank-number.rank-3 {
+    background: linear-gradient(135deg, #cd7f32, #daa520);
+    color: white;
+    box-shadow: 0 2px 8px rgba(205, 127, 50, 0.4);
+}
+
+.user-name {
+    font-size: 1.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+    color: #1a73e8;
+    margin-bottom: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+.user-name.my-name {
+    color: #e67e22;
+    font-weight: 700;
+}
+
+.points-amount {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 2px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
+/* 用戶資訊區域 (排名卡片中間部分) */
+.user-info-rank {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    margin: 0 1rem;
+}
+
+/* 點數資訊區域 (排名卡片右側) */
+.points-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+}
+
+.points-amount.my-points {
+    color: #e67e22;
+}
+
+.points-label {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* 排行榜圖示 */
+.rank-icon {
+    margin-right: 8px;
+    font-size: 1.2rem;
+}
+
+.rank-icon.crown {
+    color: #ffd700;
+}
+
+.rank-icon.medal-silver {
+    color: #c0c0c0;
+}
+
+.rank-icon.medal-bronze {
+    color: #cd7f32;
+}
+
+/* 我的排名特殊樣式 */
+.my-rank-highlight {
+    position: relative;
+    overflow: hidden;
+}
+
+.my-rank-highlight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: shine 2s infinite;
+}
+
+@keyframes shine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* 我的排名區域樣式 */
+.my-rank-main {
+    margin: 15px 0;
+    position: relative;
+    z-index: 2;
+}
+
+.neighbor-rank-card {
+    margin: 10px 0;
+    position: relative;
+    opacity: 0.8;
+    transform: scale(0.95);
+}
+
+.neighbor-rank-card .rank-card {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.neighbor-rank-card.prev-rank {
+    border-left: 3px solid #28a745;
+}
+
+.neighbor-rank-card.next-rank {
+    border-left: 3px solid #ffc107;
+}
+
+.rank-difference {
+    position: absolute;
+    top: -8px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    z-index: 1;
+}
+
+.prev-rank .rank-difference {
+    background: linear-gradient(135deg, #28a745, #20c997);
+}
+
+.next-rank .rank-difference {
+    background: linear-gradient(135deg, #ffc107, #fd7e14);
+}
+
+.neighbor-rank .rank-number {
+    background: #6c757d;
+    color: white;
+    box-shadow: 0 2px 6px rgba(108, 117, 125, 0.3);
+}
+
+.neighbor-rank .user-name {
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.neighbor-rank .points-amount {
+    color: #6c757d;
+    font-weight: 600;
+}
+
+/* 排行榜空狀態 */
+.no-leaderboard {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+    font-size: 1rem;
+    background: #f8f9fa;
+    border-radius: 15px;
+    margin: 10px 0;
+}
+
+.no-leaderboard i {
+    font-size: 3rem;
+    color: #ccc;
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .rank-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+        padding: 12px;
+    }
+    
+    .rank-info {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .points-info {
+        text-align: center;
+    }
+    
+    .user-name {
+        font-size: 1.   1rem;
+    }
+    
+    .points-amount {
+        font-size: 1.2rem;
+    }
+}
+
+/* 排行榜容器 */
+.leaderboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 10px;
+}
+
+/* 前三名特殊樣式 */
+.rank-card.rank-1,
+.rank-card.rank-2,
+.rank-card.rank-3 {
+    grid-column: span 1;
+    padding: 15px;
+}
+
+/* 響應式設計 */
+@media (max-width: 992px) {
+    .leaderboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .leaderboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .rank-card {
+        flex-direction: row;
+        text-align: left;
+        padding: 10px;
+    }
+    
+    .rank-info {
+        flex-direction: row;
+    }
+    
+    .user-info-rank {
+        padding: 0 10px;
+    }
+
+    .text-muted-point {
+        color: rgba(255, 255, 255, 0.8);
+    } 
+}
+
+/* 響應式設計 - 增強版用戶信息 */
+@media (max-width: 768px) {
+    .user-info-enhanced {
+        gap: 0.75rem;
+        padding: 0.4rem 0;
+    }
+    
+    .user-avatar-large {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+        border-width: 2px;
+    }
+    
+    .user-name-large {
+        font-size: 1.1rem;
+        max-width: 150px;
+    }
+    
+    .user-phone-large {
+        font-size: 1.1rem;
+    }
+    
+    .account-status-large {
+        font-size: 0.8rem;
+        padding: 3px 8px;
+    }
+    
+    .user-stats-enhanced {
+        gap: 0.6rem;
+    }
+    
+    .stat-item-large {
+        padding: 0.5rem 0.7rem;
+        min-width: 75px;
+    }
+    
+    .stat-icon-large {
+        font-size: 1.5rem;
+    }
+    
+    .stat-value-large {
+        font-size: 1.2rem;
+    }
+    
+    .stat-label-large {
+        font-size: 0.9rem;
+    }
+    
+    .stat-icon {
+        width: 22px;
+        height: 22px;
+        font-size: 1.1rem;
+    }
+    
+    .stat-value {
+        font-size: 1rem;
+    }
+    
+    .stat-label {
+        font-size: 0.65rem;
+    }
+    
+    .user-name {
+        font-size: 1.1rem;
+    }
+    
+    .user-phone {
+        font-size: 0.75rem;
+    }
+    
+    .account-status {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .user-info-enhanced {
+        gap: 0.6rem;
+        padding: 0.3rem 0;
+        flex-direction: column;
+    }
+    
+    .user-top-section {
+        flex-direction: row;
+        align-items: center;
+        gap: 0.6rem;
+        width: 100%;
+    }
+    
+    .user-identity {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+        flex: 1;
+        min-width: 0;
+    }
+    
+    .user-avatar-large {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+        border-width: 2px;
+        flex-shrink: 0;
+    }
+    
+    .user-name-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.6rem;
+        flex-wrap: nowrap;
+    }
+    
+    .user-name-large {
+        font-size: 1.1rem;
+        max-width: 120px;
+    }
+    
+    .user-phone-large {
+        font-size: 1.1rem;
+    }
+    
+    .account-status-large {
+        font-size: 0.8rem;
+        padding: 3px 6px;
+    }
+    
+    .user-stats-enhanced {
+        gap: 0.4rem;
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .stat-item-large {
+        padding: 0.4rem 0.6rem;
+        min-width: 70px;
+        flex: 1;
+    }
+    
+    .stat-icon-large {
+        font-size: 1.3rem;
+    }
+    
+    .stat-value-large {
+        font-size: 1.1rem;
+    }
+    
+    .stat-label-large {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-info-enhanced {
+        gap: 0.5rem;
+        padding: 0.25rem 0;
+    }
+    
+    .user-identity {
+        gap: 0.6rem;
+    }
+    
+    .user-avatar-large {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+        border-width: 2px;
+    }
+    
+    .user-name-large {
+        font-size: 1.1rem;
+        max-width: 110px;
+    }
+    
+    .user-phone-large {
+        font-size: 1.1rem;
+    }
+    
+    .account-status-large {
+        font-size: 0.75rem;
+        padding: 2px 5px;
+    }
+    
+    .user-stats-enhanced {
+        gap: 0.3rem;
+    }
+    
+    .stat-item-large {
+        padding: 0.35rem 0.5rem;
+        min-width: 65px;
+    }
+    
+    .stat-icon-large {
+        font-size: 1.2rem;
+    }
+    
+    .stat-value-large {
+        font-size: 1rem;
+    }
+    
+    .stat-label-large {
+        font-size: 0.8rem;
+    }
+}
+
+    /* 分頁標籤樣式 */
+.exchange-tabs, .records-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 0 10px;
+}
+
+.tab-btn {
+    flex: 1;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.tab-btn i {
+    font-size: 1.2rem;
+}
+
+.tab-active {
+    background: #1a73e8;
+    color: white;
+    border-color: #1a73e8;
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+}
+
+.tab-inactive {
+    background: rgba(255, 255, 255, 0.9);
+    color: #1a73e8;
+    border-color: #1a73e8;
+}
+
+.tab-inactive:hover {
+    background: #f8f9fa;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 商品卡片樣式優化 */
+.product-card {
+    background: white;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e8e8e8;
+    transition: all 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.redemption-status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.status-pending {
+    background: #e3f2fd;
+    color: #1a73e8;
+}
+
+.status-redeemed {
+    background: #e8f5e9;
+    color: #00c853;
+}
+
+.status-expired {
+    background: #ffebee;
+    color: #d32f2f;
+}
+
+/* 過期商品樣式 */
+.exchanged-product-card.expired {
+    background: #f8f9fa;
+    border-left: 4px solid #dc3545;
+    opacity: 0.8;
+}
+
+.exchanged-product-card.expired .product-title {
+    color: #dc3545;
+    text-decoration: line-through;
+}
+
+.exchanged-product-card.expired .product-description {
+    color: #6c757d;
+}
+
+.product-status.expired {
+    background-color: #dc3545;
+    color: white;
+}
+
+.expiration-info.urgent {
+    color: #fd7e14 !important;
+    font-weight: bold;
+}
+
+.expiration-info.expired {
+    color: #dc3545 !important;
+    font-weight: bold;
+}
+
+.expiration-info {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.875rem;
+}
+
+.expiration-info i {
+    margin-right: 0.25rem;
+}
+
+.redeem-action-btn {
+    background: #1a73e8;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.redeem-action-btn:hover {
+    background: #1557b0;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+}
+
+.redeem-action-btn:active {
+    background: #1557b0;
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(26, 115, 232, 0.4);
+}
+
+.redeem-action-btn i {
+    font-size: 1.1rem;
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+    .exchange-tabs, .records-tabs {
+        flex-direction: row;
+        padding: 0 5px;
+    }
+    
+    .tab-btn {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+    
+    .tab-btn i {
+        font-size: 1.1rem;
+    }
+}
+
+/* ========== 抽獎系統樣式 ========== */
+
+/* 九宮格容器 */
+.lottery-grid-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.lottery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 4px;
+    padding: 8px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.grid-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    text-align: center;
+    line-height: 1.1;
+    padding: 6px;
+    box-sizing: border-box;
+    min-height: 92px;
+    font-size: 20px;
+}
+
+.grid-item.center {
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #333;
+    font-size: 0.7rem;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.5);
+}
+
+/* 8個獎項格子的漸層背景 */
+.grid-item:nth-child(1) { background: linear-gradient(135deg, #FF6B6B, #FF8E8E); }
+.grid-item:nth-child(2) { background: linear-gradient(135deg, #4ECDC4, #44E4D8); }
+.grid-item:nth-child(3) { background: linear-gradient(135deg, #45B7D1, #67C3E6); }
+.grid-item:nth-child(4) { background: linear-gradient(135deg, #96CEB4, #A8DAC2); }
+.grid-item:nth-child(6) { background: linear-gradient(135deg, #FECA57, #FFD93D); }
+.grid-item:nth-child(7) { background: linear-gradient(135deg, #FF9FF3, #FFB3F7); }
+.grid-item:nth-child(8) { background: linear-gradient(135deg, #54A0FF, #74B9FF); }
+.grid-item:nth-child(9) { background: linear-gradient(135deg, #5F27CD, #7B3FE4); }
+
+/* 跑燈效果 */
+.grid-item.running {
+    animation: runningLight 0.3s ease-in-out;
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.9);
+    z-index: 10;
+    border: 2px solid #fff;
+}
+
+.grid-item.winner {
+    animation: winner 1s ease-in-out infinite;
+    transform: scale(1.15);
+    box-shadow: 0 0 35px rgba(255, 215, 0, 1);
+    z-index: 20;
+    border: 3px solid #FFD700;
+}
+
+@keyframes runningLight {
+    0% { 
+        transform: scale(1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        border: none;
+    }
+    50% { 
+        transform: scale(1.1);
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.9);
+        border: 2px solid #fff;
+    }
+    100% { 
+        transform: scale(1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        border: none;
+    }
+}
+
+@keyframes winner {
+    0%, 100% { 
+        transform: scale(1.15);
+        box-shadow: 0 0 35px rgba(255, 215, 0, 1);
+    }
+    50% { 
+        transform: scale(1.25);
+        box-shadow: 0 0 45px rgba(255, 215, 0, 1), 0 0 15px rgba(255, 255, 255, 0.8);
+    }
+}
+
+
+
+/* 抽獎券顯示卡片 */
+.lottery-tickets-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+    margin-bottom: 1rem;
+}
+
+.tickets-icon {
+    font-size: 3rem;
+    opacity: 0.9;
+}
+
+.tickets-info {
+    text-align: center;
+}
+
+.tickets-count {
+    font-size: 3rem;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.tickets-label {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* 抽獎動作區域 */
+.lottery-action {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.lottery-draw-btn {
+    background: linear-gradient(135deg, #FF6900, #FF8C00);
+    color: white;
+    border: none;
+    padding: 1.2rem 3rem;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(255, 105, 0, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.lottery-draw-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 105, 0, 0.4);
+}
+
+.lottery-draw-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.lottery-notice {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* 獎項網格 */
+.prizes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+/* 獎項卡片 */
+.prize-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.prize-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: var(--primary-color);
+}
+
+.prize-card.thanks-card {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-color: #dee2e6;
+}
+
+.prize-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.prize-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.prize-probability {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.thanks-card .prize-probability {
+    background: #6c757d;
+}
+
+.prize-description {
+    color: #666;    
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.prize-expiry {
+    color: #666;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+
+.prize-stock {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #28a745;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.no-prizes {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #666;
+    font-size: 1.1rem;
+}
+
+/* 抽獎結果彈窗 */
+.lottery-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    animation: modalFadeIn 0.3s ease;
+}
+
+.lottery-modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    animation: modalSlideIn 0.3s ease;
+}
+
+.lottery-result {
+    padding: 1rem 0;
+}
+
+.result-icon {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+}
+
+.winner-icon {
+    color: #FFD700;
+    animation: bounce 1s infinite;
+}
+
+.thanks-icon {
+    color: #ff6b6b;
+}
+
+.result-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.prize-info {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.prize-name {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.remaining-tickets {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    background: #e3f2fd;
+    border-radius: 10px;
+    color: #1976d2;
+    font-weight: 600;
+}
+
+.lottery-close-btn {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+}
+
+.lottery-close-btn:hover {
+    background: #5a6268;
+    transform: translateY(-1px);
+}
+
+/* 抽獎歷史列表 */
+.lottery-history-item {
+    background: white;
+    border-radius: 15px;
+    padding: 1.2rem;
+    margin-bottom: 0.8rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.lottery-history-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.lottery-history-item.winner {
+    border-left-color: #FFD700;
+    background: linear-gradient(135deg, #fff9e6, #ffffff);
+}
+
+.lottery-history-item.thanks {
+    border-left-color: #dee2e6;
+}
+
+/* 抽獎券記錄特殊樣式 */
+.lottery-history-item.ticket-item {
+    background: linear-gradient(135deg, #f8f9ff 0%, #fff 100%);
+    border-left: 4px solid #007bff;
+}
+
+/* 獲得抽獎券記錄 */
+.lottery-history-item.ticket-gain {
+    background: linear-gradient(135deg, #f0fff4 0%, #fff 100%);
+    border-left: 4px solid #28a745;
+}
+
+/* 使用抽獎券記錄 */
+.lottery-history-item.ticket-use {
+    background: linear-gradient(135deg, #fff5f5 0%, #fff 100%);
+    border-left: 4px solid #dc3545;
+}
+
+.ticket-title {
+    color: #495057;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.ticket-description {
+    color: #6c757d;
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+}
+
+.related-name {
+    margin-bottom: 0;
+}
+
+.ticket-balance {
+    min-width: 80px;
+}
+
+.balance-amount {
+    font-size: 1.1rem;
+}
+
+.balance-label {
+    font-size: 0.75rem;
+}
+
+.change-amount {
+    font-size: 0.85rem;
+    margin-bottom: 2px;
+}
+
+.history-prize-name {
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.history-draw-time {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.history-claim-status {
+    display: inline-block;
+    padding: 0.2rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.status-claimed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-unclaimed {
+    background: #fff3cd;
+    color: #856404;
+}
+
+/* 抽獎歷史過期提醒樣式 */
+.history-expiration-info {
+    display: block;
+    margin-top: 0.5rem;
+    padding: 0.375rem;
+    background: rgba(255, 193, 7, 0.1);
+    border-left: 3px solid #ffc107;
+    border-radius: 0.25rem;
+    font-size: 0.8rem;
+}
+
+.history-expiration-info i {
+    margin-right: 0.375rem;
+}
+
+/* 動畫效果 */
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .lottery-tickets-card {
+        padding: 1.5rem;
+        gap: 1rem;
+    }
+    
+    .tickets-count {
+        font-size: 2.5rem;
+    }
+    
+    .lottery-draw-btn {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+    }
+    
+    .prizes-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .lottery-modal-content {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .result-icon {
+        font-size: 4rem;
+    }
+    
+    .result-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* 九宮格載入樣式 */
+.loading-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    color: #667eea;
+    text-align: center;
+}
+
+.loading-grid .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* 手機版響應式樣式 - 更新資訊 */
+@media (max-width: 768px) {
+    .page-header {
+        flex-wrap: nowrap;
+        gap: 8px;
+    }
+
+    .update-info {
+        gap: 8px;
+    }
+
+    .update-time {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+    }
+
+    .manual-refresh-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+}
+
+.status-expiring-soon {
+    background: #ffebee;
+    color: #d32f2f;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* 商品使用確認對話框 */
+.use-product-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(3px);
+}
+
+.use-product-modal.show {
+    display: flex;
+    animation: fadeInModal 0.3s ease;
+}
+
+.use-product-dialog {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 400px;
+    width: 90%;
+    margin: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.use-product-modal.show .use-product-dialog {
+    transform: scale(1);
+}
+
+.use-product-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.use-product-icon {
+    width: 60px;
+    height: 60px;
+    background: #ff6b6b;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    color: white;
+    font-size: 24px;
+}
+
+.use-product-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+}
+
+.use-product-content {
+    margin-bottom: 30px;
+}
+
+.use-product-name {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 20px;
+    border-left: 4px solid #007bff;
+}
+
+.use-product-name h5 {
+    margin: 0;
+    color: #007bff;
+    font-weight: 600;
+}
+
+.use-product-warning {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.warning-title {
+    color: #856404;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.warning-text {
+    color: #856404;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.use-product-notice {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: 12px;
+    padding: 15px;
+    color: #155724;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.use-product-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.use-product-btn {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.use-product-btn-cancel {
+    background: #f8f9fa;
+    color: #6c757d;
+    border: 2px solid #dee2e6;
+}
+
+.use-product-btn-cancel:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+}
+
+.use-product-btn-confirm {
+    background: #dc3545;
+    color: white;
+}
+
+.use-product-btn-confirm:hover {
+    background: #c82333;
+    transform: translateY(-1px);
+}
+
+@keyframes fadeInModal {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* 點數info圖標樣式 */
+.points-info-icon {
+    cursor: pointer;
+    margin-left: 4px;
+    font-size: 0.9em;
+    color: rgba(0, 0, 0, 0.5);
+    transition: color 0.2s ease;
+    position: relative;
+}
+
+.points-info-icon:hover {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+/* 自訂 tooltip 樣式 */
+.points-info-tooltip {
+    position: absolute;
+    display: none;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    white-space: nowrap;
+    z-index: 1000;
+    top: calc(100% + 10px);
+    left: calc(50% - 10px);
+    transform: translateX(-25%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.points-info-tooltip::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 25%;
+    transform: translateX(-50%);
+    border-width: 0 6px 6px 6px;
+    border-style: solid;
+    border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
+}
+
+.points-info-tooltip.show {
+    display: block;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+/* 所有 tooltip 統一樣式 */
+.points-info-icon .points-info-tooltip {
+    top: calc(100% + 10px);
+    left: calc(50% - 10px);
+    transform: translateX(-25%);
+}
+
+.points-info-icon .points-info-tooltip::before {
+    top: -6px;
+    left: 25%;
+    transform: translateX(-50%);
+}
+
+@media (max-width: 768px) {
+    .points-info-tooltip {
+        font-size: 12px;
+        padding: 6px 10px;
+        top: calc(100% + 8px);
+        left: calc(50% - 8px);
+    }
+
+    .points-info-tooltip::before {
+        top: -5px;
+        border-width: 0 5px 5px 5px;
+    }
+
+    /* 手機版統一樣式 */
+    .points-info-icon .points-info-tooltip {
+        top: calc(100% + 8px);
+        left: calc(50% - 8px);
+        transform: translateX(-25%);
+        width: auto;
+        max-width: calc(100vw - 40px);
+    }
+
+    .points-info-icon .points-info-tooltip::before {
+        top: -5px;
+        left: 25%;
+        transform: translateX(-50%);
+    }
+}
